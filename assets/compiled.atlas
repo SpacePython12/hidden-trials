@@ -1,0 +1,20 @@
+
+compiled.png
+size: 256, 128
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+ebonycovebg
+  rotate: false
+  xy: 132, 2
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 2, 18
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1

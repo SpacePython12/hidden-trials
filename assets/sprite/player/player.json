@@ -1,0 +1,42 @@
+{
+    "atlas": "player.atlas",
+    "defaultAnimation": "walkSouth",
+    "animations": {
+        "walkSouth": {
+            "fps": 4.0,
+            "frameSource": {
+                "type": "atlas",
+                "section": "walkSouth"
+            },
+            "playType": "LOOP_PINGPONG",
+            "defaultFrame": 1
+        },
+        "walkNorth": {
+            "fps": 4.0,
+            "frameSource": {
+                "type": "atlas",
+                "section": "walkNorth"
+            },
+            "playType": "LOOP_PINGPONG",
+            "defaultFrame": 1
+        },
+        "walkEast": {
+            "fps": 4.0,
+            "frameSource": {
+                "type": "atlas",
+                "section": "walkEast"
+            },
+            "playType": "LOOP_PINGPONG",
+            "defaultFrame": 1
+        },
+        "walkWest": {
+            "fps": 4.0,
+            "frameSource": {
+                "type": "atlas",
+                "section": "walkWest"
+            },
+            "playType": "LOOP_PINGPONG",
+            "defaultFrame": 1
+        }
+    }
+}

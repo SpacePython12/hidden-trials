@@ -1,0 +1,81 @@
+
+player.png
+size: 512, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+assets/badlogic
+  rotate: false
+  xy: 2, 68
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+assets/ebonycovebg
+  rotate: false
+  xy: 260, 244
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+assets/player
+  rotate: false
+  xy: 2, 2
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+
+player2.png
+size: 512, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+desktop/bin/main/badlogic
+  rotate: false
+  xy: 2, 68
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+desktop/bin/main/ebonycovebg
+  rotate: false
+  xy: 260, 244
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+desktop/bin/main/player
+  rotate: false
+  xy: 2, 2
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+
+player3.png
+size: 512, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+desktop/build/resources/main/badlogic
+  rotate: false
+  xy: 2, 68
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+desktop/build/resources/main/ebonycovebg
+  rotate: false
+  xy: 260, 244
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+desktop/build/resources/main/player
+  rotate: false
+  xy: 2, 2
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
