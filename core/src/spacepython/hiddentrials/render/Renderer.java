@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import spacepython.hiddentrials.Constants;
 import spacepython.hiddentrials.GameMain;
-import spacepython.hiddentrials.world.Sprite;
 
 public class Renderer {
     public SpriteBatch batch;
@@ -43,7 +42,7 @@ public class Renderer {
         this.batch.setProjectionMatrix(this.camera.combined);
         this.batch.begin();
         for (Renderable r: Renderable.instances) {
-            if (r.shouldRender && !(GameMain.getInstance().getScreen() != null ^ r.renderInMenu)) {
+            if (r.shouldRender() && !(GameMain.getInstance().getScreen() != null ^ r.renderInMenu())) {
                 r.render(this);
             }
         }
@@ -84,5 +83,9 @@ public class Renderer {
 
     public void dispose() {
         this.batch.dispose();
+    }
+
+    public static void submitForRendering(Renderable r) {
+        Renderable.instances.add(r);
     }
 }

@@ -1,8 +1,5 @@
 package spacepython.hiddentrials.physics;
 
-import com.badlogic.gdx.math.Vector2;
-
-import spacepython.hiddentrials.world.Sprite;
 import spacepython.hiddentrials.GameMain;
 
 public class Physics {
@@ -36,13 +33,8 @@ public class Physics {
 
     public void update() {
         for (Updateable u: Updateable.instances) {
-            if (u.shouldUpdate && !(GameMain.getInstance().getScreen() != null ^ u.updateInMenu)) {
+            if (u.shouldUpdate() && !(GameMain.getInstance().getScreen() != null ^ u.updateInMenu())) {
                 u.update(this);
-            }
-        }
-        for (Sprite s: Sprite.instances) {
-            if (s.shouldUpdate && !(GameMain.getInstance().getScreen() != null ^ s.updateInMenu)) {
-                s.update(this);
             }
         }
         GameMain.getInstance().update();
@@ -54,5 +46,9 @@ public class Physics {
 
     public float getDeltaTime() {
         return this.deltaTime;
+    }
+
+    public static void submitForUpdating(Updateable u) {
+        Updateable.instances.add(u);
     }
 }

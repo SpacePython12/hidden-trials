@@ -73,7 +73,7 @@ public class Player extends Being {
                 this.hitbox.offset(Hitbox.getOverlap(this.hitbox, hb));
             }
         }
-        this.hitbox.update();
+        this.hitbox.update(physics);
         GameMain.getInstance().renderer.camera.position.x = this.hitbox.getCenterX();
         GameMain.getInstance().renderer.camera.position.y = this.hitbox.getCenterY();
     }

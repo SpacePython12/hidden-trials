@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Hitbox extends Updateable {
+public class Hitbox implements Updateable {
     public static ArrayList<Hitbox> instances = new ArrayList<>();
     public Vector2 pos, size, velocity;
-    public boolean noClip;
+    public boolean noClip, shouldUpdate, updateInMenu;
 
     public Hitbox(Vector2 pos, Vector2 size, Vector2 velocity) {
         super();
@@ -22,7 +22,7 @@ public class Hitbox extends Updateable {
         this(pos, size, new Vector2(0, 0));
     }
 
-    public void update() {
+    public void update(Physics physics) {
         this.pos.add(this.velocity);
     }
 
@@ -103,5 +103,13 @@ public class Hitbox extends Updateable {
 
     public static float distance(Hitbox a, Hitbox b) {
         return (float) Math.sqrt(Math.pow(b.getCenterX() - a.getCenterX(), 2) + Math.pow(b.getCenterY() - a.getCenterY(), 2));
+    }
+
+    public boolean shouldUpdate() {
+        return this.shouldUpdate;
+    }
+
+    public boolean updateInMenu() {
+        return this.updateInMenu;
     }
 }

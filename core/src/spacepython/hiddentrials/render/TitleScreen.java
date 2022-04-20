@@ -3,48 +3,52 @@ package spacepython.hiddentrials.render;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 
-public class TitleScreen implements Screen {
+public class TitleScreen implements Screen, Renderable {
 
-    @Override
-    public void show() {
-        
-
+    public TitleScreen() {
+        super();
+        Renderer.submitForRendering(this);
     }
 
-    @Override
+    public void show() {
+        
+    }
+
     public void render(float delta) {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
     public void resize(int width, int height) {
-        // TODO Auto-generated method stub
 
     }
 
-    @Override
     public void pause() {
-        // TODO Auto-generated method stub
 
     }
 
-    @Override
     public void resume() {
-        // TODO Auto-generated method stub
 
     }
 
-    @Override
     public void hide() {
-        // TODO Auto-generated method stub
 
     }
 
-    @Override
     public void dispose() {
-        // TODO Auto-generated method stub
 
+    }
+
+    public void render(Renderer renderer) {
+        this.render(renderer.getDeltaTime());   
+    }
+
+    public boolean shouldRender() {
+        return true;
+    }
+
+    public boolean renderInMenu() {
+        return true;
     }
     
 }
