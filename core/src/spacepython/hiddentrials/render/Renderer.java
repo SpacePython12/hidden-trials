@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -13,6 +15,7 @@ import spacepython.hiddentrials.GameMain;
 
 public class Renderer {
     public SpriteBatch batch;
+    public ShapeRenderer sbatch;
     public OrthographicCamera camera;
     public int width, height;
     
@@ -20,6 +23,8 @@ public class Renderer {
         Gdx.graphics.setTitle(Constants.title + " v" + Constants.version + " (" + Constants.status + ")");
         this.camera = new OrthographicCamera();
         this.batch = new SpriteBatch();
+        this.sbatch = new ShapeRenderer();
+        this.sbatch.setAutoShapeType(true);
         this.batch.enableBlending();
         this.onResize();
     }
@@ -35,18 +40,21 @@ public class Renderer {
     }
 
     public void renderFrame() {
-        ScreenUtils.clear(0.0f, 0.0f, 0.0f, 1.0f);
+        ScreenUtils.clear(0.5f, 0.5f, 0.5f, 1.0f);
         if (GameMain.getInstance().getScreen() != null) {
             GameMain.getInstance().getScreen().render(this.getDeltaTime());
         }
         this.batch.setProjectionMatrix(this.camera.combined);
+        this.sbatch.setProjectionMatrix(this.camera.combined);
         this.batch.begin();
+        this.sbatch.begin();
         for (Renderable r: Renderable.instances) {
             if (r.shouldRender() && !(GameMain.getInstance().getScreen() != null ^ r.renderInMenu())) {
                 r.render(this);
             }
         }
         this.batch.end();
+        this.sbatch.end();
     }
 
     public float getDeltaTime() {
@@ -87,5 +95,21 @@ public class Renderer {
 
     public static void submitForRendering(Renderable r) {
         Renderable.instances.add(r);
+    }
+
+    public static void stopRendering(Renderable r) {
+        Renderable.instances.remove(r);
+    }
+
+    public void setToLineMode() {
+        this.sbatch.set(ShapeType.Line);
+    }
+
+    public void setToFillMode() {
+        this.sbatch.set(ShapeType.Filled);
+    }
+
+    public void setToPointMode() {
+        this.sbatch.set(ShapeType.Point);
     }
 }

@@ -51,4 +51,8 @@ public class Physics {
     public static void submitForUpdating(Updateable u) {
         Updateable.instances.add(u);
     }
+
+    public static void stopUpdating(Updateable u) {
+        Updateable.instances.remove(u);
+    }
 }

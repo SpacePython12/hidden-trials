@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.Game;
 
+import spacepython.hiddentrials.input.InputManager;
 import spacepython.hiddentrials.physics.Physics;
 import spacepython.hiddentrials.render.Renderer;
 import spacepython.hiddentrials.render.Text;
@@ -13,7 +14,8 @@ import spacepython.hiddentrials.world.*;
 
 public class GameMain extends Game {
 	private static GameMain instance;
-	private static TitleScreen titleScreen = new TitleScreen();
+	public TitleScreen titleScreen;
+	public InputManager inputManager;
 	public boolean inGame, rPressed = false;
 	public Renderer renderer;
 	public Physics physics;
@@ -24,6 +26,8 @@ public class GameMain extends Game {
 		GameMain.instance = this;
 		this.renderer = new Renderer();
 		this.physics = new Physics();
+		this.inputManager = new InputManager();
+		this.titleScreen = new TitleScreen();
 		this.player = new Player(new Vector2(0, 0), new Vector2(0, 0));
 		// this.debugText = new Text(new Vector2(5, this.renderer.height-5), "");
 		this.setupUpdateThread();
