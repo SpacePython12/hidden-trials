@@ -1,13 +1,16 @@
-package spacepython.hiddentrials.world;
+package spacepython.hiddentrials.render;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Vector2;
+
 import spacepython.hiddentrials.physics.*;
-import spacepython.hiddentrials.render.*;
 
 public abstract class Sprite implements Updateable, Renderable {
     public static ArrayList<Sprite> instances = new ArrayList<>();
     public boolean shouldRender = true, shouldUpdate = true, updateInMenu = false, renderInMenu = false;
+    public Model model;
+    public Vector2 pos, size, velocity;
 
     public Sprite() {
         Physics.submitForUpdating(this);

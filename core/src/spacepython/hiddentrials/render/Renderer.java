@@ -18,6 +18,10 @@ public class Renderer {
     public ShapeRenderer sbatch;
     public OrthographicCamera camera;
     public int width, height;
+    public enum RenderPosition {
+        BACK,
+        FRONT,
+    }
     
     public Renderer() {
         Gdx.graphics.setTitle(Constants.title + " v" + Constants.version + " (" + Constants.status + ")");
@@ -93,8 +97,19 @@ public class Renderer {
         this.batch.dispose();
     }
 
+    public static void submitForRendering(Renderable r, RenderPosition p) {
+        switch(p) {
+            case BACK: 
+                Renderable.instances.add(0, r);
+                break;
+            case FRONT:
+                Renderable.instances.add(r);
+                break;
+        }
+    }
+
     public static void submitForRendering(Renderable r) {
-        Renderable.instances.add(r);
+        submitForRendering(r, RenderPosition.FRONT);
     }
 
     public static void stopRendering(Renderable r) {

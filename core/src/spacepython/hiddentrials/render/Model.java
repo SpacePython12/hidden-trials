@@ -65,4 +65,8 @@ public class Model {
     public TextureRegion getTexture() {
         return this.currentTexture;
     }
+
+    public void setTexture(TextureRegion t) {
+        this.currentTexture = t;
+    }
 }
