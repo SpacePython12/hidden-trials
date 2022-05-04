@@ -37,4 +37,12 @@ public abstract class Sprite implements Updateable, Renderable {
     public boolean updateInMenu() {
         return this.updateInMenu;
     }
+
+    public void allowRender(boolean state) {
+        this.shouldRender = state;
+    }
+
+    public void allowUpdate(boolean state) {
+        this.shouldUpdate = state;
+    }
 }

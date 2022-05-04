@@ -76,10 +76,14 @@ public class Player extends Being {
         this.hitbox.update(physics);
         GameMain.getInstance().renderer.camera.position.x = this.hitbox.getCenterX();
         GameMain.getInstance().renderer.camera.position.y = this.hitbox.getCenterY();
+        GameMain.getInstance().renderer.camera.update();
     }
 
     public void render(Renderer renderer) {
         this.model.keyFrame();
+        if (renderer.camera.position.x != this.hitbox.getCenterX() && renderer.camera.position.y != this.hitbox.getCenterY()) {
+            System.out.println("Offcenter!");
+        }
         renderer.render(this.model.getTexture(), this.hitbox.getLeft(), this.hitbox.getBottom(), this.size.x, this.size.y);
     }
 }

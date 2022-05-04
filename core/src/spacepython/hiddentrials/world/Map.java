@@ -1,6 +1,9 @@
 package spacepython.hiddentrials.world;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
@@ -18,53 +21,64 @@ public class Map implements Updateable, Renderable{
     private Texture atlas;
     private TextureRegion[] tileTextures;
     private int tileCount;
-    private int[][][] layers;
+    private int[][] layout;
     public Vector2 pos, scale = new Vector2(3, 3);
+    public boolean loaded = true;
     
-    public Map(Vector2 pos, FileHandle file) {
-        this.pos = pos;
-        JsonValue base = new JsonReader().parse(file);
-        JsonValue textureData = base.get("tileData");
-        this.atlas = new Texture(file.parent().child(textureData.getString("atlas")));
-        JsonValue positions = textureData.get("positions");
-        this.tileCount = positions.size;
+    public Map() {
+        this.pos = new Vector2();
+        this.tileTextures = new TextureRegion[0];
+        this.layout = new int[0][0];
+    }
+
+    public void loadTextures(FileHandle atlas, int width, int height, int[][] positions) {
+        this.atlas = new Texture(atlas);
+        this.tileCount = positions.length;
         this.tileTextures = new TextureRegion[this.tileCount];
-        int[] position;
-        for (int i = 0; i < tileCount; i++) {
-            position = positions.get(i).asIntArray();
-            this.tileTextures[i] = new TextureRegion(this.atlas, position[0], position[1], position[2], position[3]);
+        int[] pos;
+        for (int i = 0; i < positions.length; i++) {
+            pos = positions[i];
+            tileTextures[i] = new TextureRegion(this.atlas, pos[0]*width, pos[1]*height, width, height);
         }
-        JsonValue layerData = base.get("layerData");
-        int[] layerDimensions = layerData.get("dimensions").asIntArray();
-        JsonValue layers = layerData.get("layers");
-        this.layers = new int[layers.size][layerDimensions[1]][layerDimensions[0]];
-        for (int l = 0; l < layers.size; l++) {
-            for (int y = 0; y < layerDimensions[1]; y++) {
-                this.layers[l][y] = layers.get(l).get(y).asIntArray();
+    }
+
+    public void loadLayout(FileHandle layout, int[] cids) {
+        Pixmap pmap = new Pixmap(layout);
+        this.layout = new int[pmap.getHeight()][pmap.getWidth()];
+        int pix;
+        for (int y = 0; y < pmap.getHeight(); y++) {
+            for (int x = 0; x < pmap.getWidth(); x++) {
+                this.layout[y][x] = -1;
+                pix = pmap.getPixel(x, y);
+                for (int c = 0; c < cids.length; c++) {
+                    if (cids[c] == pix) {
+                        this.layout[y][x] = c;
+                        break;
+                    }
+                }
             }
         }
     }
 
     public void render(Renderer renderer) {
         TextureRegion currentTexture;
-        for (int l = 0; l < this.layers.length; l++) {
-            for (int y = 0; y < this.layers[l].length; y++) {
-                for (int x = 0; x < this.layers[l][y].length; x++) {
-                    currentTexture = this.tileTextures[this.layers[l][y][x]];
-                    renderer.render(
-                        currentTexture, 
-                        ((x*currentTexture.getRegionWidth())+this.pos.x)*this.scale.x, 
-                        ((y*currentTexture.getRegionHeight())+this.pos.y)*this.scale.y, 
-                        currentTexture.getRegionWidth()*this.scale.x, 
-                        currentTexture.getRegionHeight()*this.scale.y
-                    );
-                }
+        for (int y = this.layout.length == 0 ? 0 : this.layout.length-1; y >= 0; y--) {
+            for (int x = 0; x < this.layout[y].length; x++) {
+                if (this.layout[y][x] < 0) continue;
+                currentTexture = this.tileTextures[this.layout[y][x]];
+                renderer.render(
+                    currentTexture, 
+                    ((x*currentTexture.getRegionWidth())+this.pos.x)*this.scale.x, 
+                    ((y*currentTexture.getRegionHeight())+this.pos.y)*this.scale.y, 
+                    currentTexture.getRegionWidth()*this.scale.x, 
+                    currentTexture.getRegionHeight()*this.scale.y
+                );
             }
         }
     }
 
     public boolean shouldRender() {
-        return true;
+        return this.loaded;
     }
 
     public boolean renderInMenu() {
@@ -81,5 +95,25 @@ public class Map implements Updateable, Renderable{
 
     public boolean updateInMenu() {
         return false;
+    }
+
+    public void dispose() {
+        this.atlas.dispose();
+    }
+
+    public int[][] getLayerData() {
+        return this.layout;
+    }
+
+    public void setLayerData(int[][] ld) {
+        this.layout = ld;
+    }
+    
+    public TextureRegion[] getTileTextures() {
+        return this.tileTextures;
+    }
+
+    public void getTileTextures(TextureRegion[] tt) {
+        this.tileTextures = tt;
     }
 }

@@ -13,42 +13,42 @@ titleCard
 playButton
   rotate: false
   xy: 0, 48
-  size: 40, 16
-  orig: 40, 16
+  size: 64, 16
+  orig: 64, 16
   offset: 0, 0
   index: 0
 playButton
   rotate: false
   xy: 0, 64
-  size: 40, 16
-  orig: 40, 16
+  size: 64, 16
+  orig: 64, 16
   offset: 0, 0
   index: 1
 optionsButton
   rotate: false
-  xy: 40, 48
-  size: 20, 16
-  orig: 20, 16
+  xy: 64, 48
+  size: 32, 16
+  orig: 32, 16
   offset: 0, 0
   index: 0
 optionsButton
   rotate: false
-  xy: 40, 64
-  size: 20, 16
-  orig: 20, 16
+  xy: 64, 64
+  size: 32, 16
+  orig: 32, 16
   offset: 0, 0
   index: 1
 webButton
   rotate: false
-  xy: 60, 48
-  size: 20, 16
-  orig: 20, 16
+  xy: 96, 48
+  size: 32, 16
+  orig: 32, 16
   offset: 0, 0
   index: 0
 webButton
   rotate: false
-  xy: 60, 64
-  size: 20, 16
-  orig: 20, 16
+  xy: 96, 64
+  size: 32, 16
+  orig: 32, 16
   offset: 0, 0
   index: 1

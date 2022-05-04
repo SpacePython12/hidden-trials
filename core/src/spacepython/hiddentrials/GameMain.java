@@ -28,6 +28,7 @@ public class GameMain extends Game {
 		this.physics = new Physics();
 		this.player = new Player(new Vector2(0, 0), new Vector2(0, 0));
 		this.level = new Level(Gdx.files.internal("level/ebonycove/data.json"));
+		Level.setLevel(this.level);
 		this.titleScreen = new TitleScreen();
 		this.debugText = new Text(new Vector2(5, this.renderer.height-5), "");
 		this.setupUpdateThread();

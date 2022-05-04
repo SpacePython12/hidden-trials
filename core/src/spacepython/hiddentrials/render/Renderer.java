@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import spacepython.hiddentrials.Constants;
 import spacepython.hiddentrials.GameMain;
+import spacepython.hiddentrials.world.Level;
 
 public class Renderer {
     public SpriteBatch batch;
@@ -44,7 +45,11 @@ public class Renderer {
     }
 
     public void renderFrame() {
-        ScreenUtils.clear(0.5f, 0.5f, 0.5f, 1.0f);
+        if (Level.getLevel() != null) {
+            ScreenUtils.clear(Level.getLevel().bgColor);
+        } else {
+            ScreenUtils.clear(0.5f, 0.5f, 0.5f, 1.0f);
+        }
         if (GameMain.getInstance().getScreen() != null) {
             GameMain.getInstance().getScreen().render(this.getDeltaTime());
         }
