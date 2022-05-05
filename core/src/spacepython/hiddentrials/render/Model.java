@@ -27,7 +27,7 @@ public class Model {
         JsonValue manifestData = reader.parse(rawManifestData);
         this.texture = new TextureAtlas(Gdx.files.internal(manifest.parent().path() + "/" + manifestData.getString("atlas", manifest.nameWithoutExtension() + ".atlas")));
         for (JsonValue pair: manifestData.get("animations")) {
-            this.animations.put(pair.name, new Animation<TextureRegion>(1.0f / ((pair.getFloat("fps") / Physics.ups) * (2.0f * Physics.ups)), this.texture.findRegions(pair.get("framesource").getString("section")), Animation.PlayMode.valueOf(pair.getString("playType"))));
+            this.animations.put(pair.name, new Animation<TextureRegion>(1.0f / pair.getFloat("fps"), this.texture.findRegions(pair.get("framesource").getString("section")), Animation.PlayMode.valueOf(pair.getString("playType"))));
             this.animationDefaults.put(pair.name, pair.getInt("defaultFrame"));
         }
         this.setAnimation(manifestData.getString("defaultAnimation"));
@@ -55,11 +55,15 @@ public class Model {
         return this.locked;
     }
 
-    public void keyFrame() {
+    public void keyFrame(float deltaTime) {
         if (!locked) {
-            this.animationTime += Gdx.graphics.getDeltaTime();
+            this.animationTime += deltaTime;
             this.currentTexture = this.currentAnimation.getKeyFrame(this.animationTime);
         }
+    }
+
+    public void keyFrame() {
+        this.keyFrame(Gdx.graphics.getDeltaTime());
     }
 
     public TextureRegion getTexture() {

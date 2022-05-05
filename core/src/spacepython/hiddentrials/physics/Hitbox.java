@@ -23,7 +23,9 @@ public class Hitbox implements Updateable {
     }
 
     public void update(Physics physics) {
+        physics.profiler.push("updatePosition");
         this.pos.add(this.velocity);
+        physics.profiler.pop();
     }
 
     public float getLeft() {

@@ -36,7 +36,7 @@ public class GameMain extends Game {
 
 	public void update() {
 		this.renderer.update();
-		this.debugText.text = "FPS: " + Gdx.graphics.getFramesPerSecond() + "\nPlayer position: " + Math.round(this.player.pos.x) + " " + Math.round(this.player.pos.y);
+		this.debugText.text = String.format("FPS: %d\nPlayer position: %s\nRendersystem Profiler:\n%s\nPhysics Profiler:\n%s\n", Gdx.graphics.getFramesPerSecond(), this.player.pos.toString(), this.renderer.profiler.getAverageData(), this.physics.profiler.getAverageData());
 		this.debugText.pos = this.renderer.getScreenCoords(5, this.renderer.height-5);
 		boolean newPress = Gdx.input.isKeyPressed(Input.Keys.R);
 		if (!this.rPressed && newPress) {

@@ -43,8 +43,12 @@ public class Level implements Updateable, Renderable{
 
     public void render(Renderer renderer) {
         if (!this.isActive) return;
+        int id = 0;
         for (Map map: this.maps) {
+            renderer.profiler.push("renderMap:0" + id);
             map.render(renderer);
+            renderer.profiler.pop();
+            id++;
         }
     }
 
@@ -58,8 +62,12 @@ public class Level implements Updateable, Renderable{
 
     public void update(Physics physics) {
         if (!this.isActive) return;
+        int id = 0;
         for (Map map: this.maps) {
+            physics.profiler.push("updateMap:0" + id);
             map.update(physics);
+            physics.profiler.pop();
+            id++;
         }
     }
 
